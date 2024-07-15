@@ -1,0 +1,56 @@
+# 3d vashishta
+
+units		metal
+atom_style	atomic
+
+boundary        p p p
+
+
+lattice		custom 1   &
+           a1 5.5392  0. 0.   &
+           a2 0.0 5.5392  0.0 &
+           a3 0.0 0.0 5.5392  &
+           basis 0.   0.   0. &
+           basis 0.5  0.5  0. &
+           basis 0.5  0.   0.5 &
+           basis 0.   0.5  0.5 & 
+           basis 0.5  0.   0.  & 
+           basis 0.   0.5  0.  & 
+           basis 0.   0.   0.5  &
+           basis 0.5  0.5  0.5  
+
+
+region		caixa block 0 2 0 2 0 2
+create_box	2 caixa
+create_atoms	1 region caixa basis 1 1 basis 2 1 basis 3 1 basis 4 1 &
+            	  basis 5 2 basis 6 2 basis 7 2 basis 8 2  &
+
+
+mass		1 137.33
+mass		2 15.9994 
+
+velocity	all create 2100. 473204 dist gaussian
+
+group		Ba type 1
+group		O type 2
+
+pair_style	table linear 50000
+pair_coeff	1 1 Pot_BaO Vash_11
+pair_coeff	1 2 Pot_BaO Vash_12
+pair_coeff	2 2 Pot_BaO Vash_22
+
+timestep	0.001   #1.0 fs
+
+thermo		500         # intervalo para mostrar output instantaneos.
+
+neighbor	2.0 bin
+neigh_modify	every 8 delay 0 check yes
+
+restart		1000 BaO-nvt.T2100
+
+#fix		ensemble all nve
+#fix		ensemble all nvt temp 300 300 0.1 iso 0.0 0.0 0.5 drag 2.0
+fix    ensemble all nvt temp 2100 2100 0.1 
+
+
+run		50000
