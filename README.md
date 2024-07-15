@@ -8,4 +8,4 @@ We performed simulations on canonical and isothermal-isobaric ensemble which are
 Inside each folder we have `text_files` which are the default output of LAAMPS simulations. The file `Extract_data.bat` uses regular expression to
 filter the important physical properties in the '.txt' files, such as temperature, volume, pressure, etc and write csv files of the folder `csv_files`.  
 
-The data analysis is done in the jupyter notebook format that essentially uses matplotlib, pandas and numpy librarys.
+The data analysis is done in the jupyter notebook format that essentially uses matplotlib, pandas, numpy and scipy librarys.
